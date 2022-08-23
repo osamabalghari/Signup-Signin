@@ -1,20 +1,13 @@
-const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
+import * as React from 'react';
+import Alert from '@mui/material/Alert';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
 
-const alert = (message, type) => {
-  const wrapper = document.createElement('div')
-  wrapper.innerHTML = [
-    `<div class="alert alert-${type} alert-dismissible" role="alert">`,
-    `   <div>${message}</div>`,
-    '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
-    '</div>'
-  ].join('')
-
-  alertPlaceholder.append(wrapper)
-}
-
-const alertTrigger = document.getElementById('liveAlertBtn')
-if (alertTrigger) {
-  alertTrigger.addEventListener('click', () => {
-    alert('Nice, you triggered this alert message!', 'success')
-  })
+export default function Alerts(props) {
+  const { alertClose, alert } = props
+  return (
+    alert === "" ? "" : <Stack sx={{ width: '100%' }} spacing={2}>
+      <Alert onClose={alertClose}>{alert}</Alert>
+    </Stack>
+  );
 }
