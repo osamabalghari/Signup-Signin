@@ -13,7 +13,7 @@ const SignUp = (props) => {
   }
   const navigate = useNavigate()
   const registerUser = async () => {
-    const response = await fetch("http://localhost:3002/auth/c1/signup", {
+    const response = await fetch("http://localhost:3002/api/auth/signup", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -23,8 +23,7 @@ const SignUp = (props) => {
 
     const json = await response.json()
     if (json.success) {
-
-      navigate("/welcome")
+      navigate("/")
     } else {
       setAlert(json.message)
     }

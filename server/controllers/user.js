@@ -51,4 +51,15 @@ const signIn = async (req, res) => {
 
 }
 
-module.exports = { signUp, signIn }
+const getAllUser = async (req, res) => {
+
+    try {
+        const user = await User.find({ email: req.user.email })
+
+        res.status(200).json({ success: true, message: "user authorization", user })
+    } catch (error) {
+        res.status(400).json({ message: error.message })
+    }
+}
+
+module.exports = { signUp, signIn, getAllUser }

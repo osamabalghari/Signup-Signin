@@ -1,9 +1,11 @@
-
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
+import userContext from '../context/userConrext'
 import Alerts from './Alert'
 
 const SignIn = (props) => {
+  const context = useContext(userContext)
+  const { setToken, handleAuthentication } = context
   const [alert, setAlert] = useState("")
 
   const alertClose = () => {
@@ -13,7 +15,7 @@ const SignIn = (props) => {
   const [userInput, setUserInput] = useState({ email: "", password: "" })
   const navigate = useNavigate()
   const login = async () => {
-    const response = await fetch("http://localhost:3002/auth/c1/signin", {
+    const response = await fetch("http://localhost:3002/api/auth/signin", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -22,12 +24,17 @@ const SignIn = (props) => {
     })
 
     const json = await response.json()
+    console.log(json);
     if (json.success) {
+      handleAuthentication(true)
+      localStorage.setItem('auth_token', json.token);
       navigate("/welcome")
+
     } else {
       setAlert(json.message)
+
     }
-    console.log(json);
+    //console.log(json);
   }
 
   const change = (e) => {

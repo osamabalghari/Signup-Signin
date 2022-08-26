@@ -12,7 +12,7 @@ const env = process.env.PORT
 
 app.use(cors())
 app.use(express.json())
-app.use("/auth/c1/", userRouter)
+app.use("/api/auth", userRouter)
 app.listen(env, () => {
     console.log(`Server Running on ${env}`);
 })
